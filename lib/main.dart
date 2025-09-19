@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_week5/week6/button.dart';
+import 'package:flutter_application_week5/week6/images.dart';
 
 
 void main() {
   //basic
-runApp(MaterialApp(home:Button()));
+runApp(MaterialApp(home:ImagesDemo()));
 }
    
 
