@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_week5/baking_app.dart';
+import 'package:flutter_application_week5/week6/login_dynamic.dart';
 
 
 void main() {
   //basic
-runApp(MaterialApp(home:BakingApp()));
+runApp(MaterialApp(home:LoginDN()));
 }
    
 
