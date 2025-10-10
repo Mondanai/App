@@ -3,40 +3,57 @@ import 'package:flutter/material.dart';
 
 class AlertDialogDemo extends StatefulWidget {
   const AlertDialogDemo({super.key});
-
-
   @override
   State<AlertDialogDemo> createState() => _AlertDialogDemoState();
 }
 
 
 class _AlertDialogDemoState extends State<AlertDialogDemo> {
-  void showAlert() async {
-    await showDialog(
+  String ans = 'Click a button to choose';
+
+
+  void show() async {
+    String? answer = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Alert title'),
-          content: Text('Alert content'),
+          title: const Text('Is this a hero?'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset('assets/images/batman.png'),
+              const Text('Batman'),
+            ],
+          ),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
-                // Navigator.pop(context);
+                Navigator.of(context).pop('no');
               },
-              child: Text('OK'),
+              child: const Text('No'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
-                // Navigator.pop(context);
+                Navigator.of(context).pop('yes');
               },
-              child: Text('Cancel'),
+              child: const Text('Yes'),
             ),
           ],
         );
       },
     );
+
+
+    // check the answer from the dialog
+    if (answer != null) {
+      setState(() {
+        ans = 'Your answer is $answer';
+      });
+    } else {
+      setState(() {
+        ans = 'You select nothing';
+      });
+    }
   }
 
 
@@ -48,9 +65,15 @@ class _AlertDialogDemoState extends State<AlertDialogDemo> {
       ),
       body: Container(
         padding: const EdgeInsets.all(10),
-        child: FilledButton(
-          onPressed: showAlert,
-          child: const Text('alert'),
+        child: Row(
+          children: [
+            FilledButton(
+              onPressed: show,
+              child: const Text('dialog'),
+            ),
+            const SizedBox(width: 10),
+            Text(ans),
+          ],
         ),
       ),
     );
