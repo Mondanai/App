@@ -11,14 +11,14 @@ class RadioDemo extends StatefulWidget {
 
 
 class _RadioDemoState extends State<RadioDemo> {
-  int gValue = 0, gValue2 = 2;
+  int gValue1 = 0, gValue2 = 2;
 
 
-  void changeRadio(int? value) {
+  void changeRadio1(int? value) {
     //value is a radio button's value
     //whenever value matches groupValue, radio is selected
     setState(() {
-      gValue = value!;
+      gValue1 = value!;
     });
   }
 
@@ -27,6 +27,35 @@ class _RadioDemoState extends State<RadioDemo> {
     setState(() {
       gValue2 = value!;
     });
+  }
+
+
+  List<Widget> createRadioGroup(int id) {
+    List<Widget> radioList = [];
+    for (int i = 0; i < 3; i++) {
+      if (id == 1) {
+        radioList
+            .add(Radio(value: i, groupValue: gValue1, onChanged: changeRadio1));
+      } else {
+        radioList
+            .add(Radio(value: i, groupValue: gValue2, onChanged: changeRadio2));
+      }
+      radioList.add(Text('$i'));
+    }
+
+
+    if (id == 1) {
+      radioList.addAll([
+        const Spacer(),
+        Text('You choose $gValue1'),
+      ]);
+    } else {
+      radioList.addAll([
+        const Spacer(),
+        Text('You choose $gValue2'),
+      ]);
+    }
+    return radioList;
   }
 
 
@@ -41,28 +70,10 @@ class _RadioDemoState extends State<RadioDemo> {
         child: Column(
           children: [
             Row(
-              children: [
-                Radio(value: 0, groupValue: gValue, onChanged: changeRadio),
-                const Text('0'),
-                Radio(value: 1, groupValue: gValue, onChanged: changeRadio),
-                const Text('1'),
-                Radio(value: 2, groupValue: gValue, onChanged: changeRadio),
-                const Text('2'),
-                const Spacer(),
-                Text('You choose $gValue'),
-              ],
+              children: createRadioGroup(1),
             ),
             Row(
-              children: [
-                Radio(value: 0, groupValue: gValue2, onChanged: changeRadio2),
-                const Text('0'),
-                Radio(value: 1, groupValue: gValue2, onChanged: changeRadio2),
-                const Text('1'),
-                Radio(value: 2, groupValue: gValue2, onChanged: changeRadio2),
-                const Text('2'),
-                const Spacer(),
-                Text('You choose $gValue2'),
-              ],
+              children: createRadioGroup(2),
             ),
           ],
         ),
